@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='marketsim',
+    name='bullish',
     version='1.0',
     description='Stock market simulation',
-    url='https://github.com/J-Obog/market-simulator',
+    url='https://github.com/J-Obog/bullish-marketsim',
     author='JObog',
     author_email='jobogbaimhe@gmail.com',
     license='MIT',

@@ -10,6 +10,8 @@ python-dotenv = "*"
 flask = "*"
 python-decouple = "*"
 marketsim = {editable = true, path = "."}
+flask-apscheduler = "*"
+bullish = {editable = true, path = "."}
 
 [requires]
 python_version = "3.6"
