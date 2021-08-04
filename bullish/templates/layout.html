@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="icon" href="{{ url_for('static', filename='images/bull-logo.png') }}">
+        <link rel="icon" href="{{ url_for('static', filename='images/bull-logo.png') }}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css" 
+            integrity="sha512-y6ZMKFUQrn+UUEVoqYe8ApScqbjuhjqzTuwUMEGMDuhS2niI8KA3vhH2LenreqJXQS+iIXVTRL2iaNfJbDNA1Q==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" 
             integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" 
             crossorigin="anonymous" 
@@ -11,9 +14,43 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
-        <div></div>
+        <header>
+            <nav class="bg-white shadow">
+                <div class="container py-3 mx-auto md:flex">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <a class="text-xl font-bold text-green-300" href="#">bullish</a>
+                        </div>
+                    </div>
+        
+                    <div class="w-full md:flex md:items-center md:justify-between">
+                        <div class="flex flex-col px-2 py-3 -mx-4 md:flex-row md:mx-0 md:py-0">
+                            <a href="#" class="px-2 py-1 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded hover:bg-gray-900 hover:text-gray-100 md:mx-2">Account</a>
+                            <a href="#" class="px-2 py-1 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded hover:bg-gray-900 hover:text-gray-100 md:mx-2">Settings</a>
+                        </div>
+                        
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" 
+                                        stroke="currentColor" 
+                                        stroke-width="2" 
+                                        stroke-linecap="round" 
+                                        stroke-linejoin="round">
+                                    </path>
+                                </svg>
+                            </span>
+        
+                            <input type="text" class="py-1 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
         <div>{% block content %}{% endblock %}</div>
-        <div></div>
+        <footer>
+            <div></div>
+        </footer>
         {% block scripts %}{% endblock %}
     </body> 
 </html>

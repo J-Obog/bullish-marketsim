@@ -5,6 +5,6 @@ def create_app():
 
   @app.route('/')
   def index():
-    return "Index Page"
+    return render_template('layout.html')
   
   return app
