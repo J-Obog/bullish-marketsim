@@ -1,10 +1,10 @@
-from flask import Flask 
+from flask import Flask, render_template
 
-app = Flask(__name__)
+def create_app():
+  app = Flask(__name__)
 
-@app.route('/')
-def index():
+  @app.route('/')
+  def index():
     return "Index Page"
-
-if __name__ == '__main__':
-    app.run()
+  
+  return app

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="icon" href="{{ url_for('static', filename='images/bull-logo.png') }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" 
+            integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer">
+        </script>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div></div>
+        <div>{% block content %}{% endblock %}</div>
+        <div></div>
+        {% block scripts %}{% endblock %}
+    </body> 
+</html>

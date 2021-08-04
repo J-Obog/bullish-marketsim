@@ -9,7 +9,6 @@ python-dotenv = "*"
 [packages]
 flask = "*"
 python-decouple = "*"
-marketsim = {editable = true, path = "."}
 flask-apscheduler = "*"
 bullish = {editable = true, path = "."}
 

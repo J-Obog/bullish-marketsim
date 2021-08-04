@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "62a03f987a8a34a4477f0c8440a41b76905c1c8e79f4caf7b9e4cc208fb7c725"
+            "sha256": "f488c3d5c05c814fea7ac5ade50b385abf529fa4c41ead7d46d8275ff517b44d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -90,10 +90,6 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==3.0.1"
-        },
-        "marketsim": {
-            "editable": true,
-            "path": "."
         },
         "markupsafe": {
             "hashes": [
