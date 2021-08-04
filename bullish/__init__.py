@@ -5,6 +5,10 @@ def create_app():
 
   @app.route('/')
   def index():
-    return render_template('layout.html')
+    return render_template('accounts.html')
   
+  @app.route('/test')
+  def test():
+    return render_template('layout.html') 
+
   return app
