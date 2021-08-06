@@ -1,0 +1,8 @@
+{% extends "base.html" %} 
+
+{% block content %}
+{% include "navbar.html" %}
+<hr>
+<div>{% block main %}{% endblock %}</div>
+{% include "footer.html" %}
+{% endblock %}

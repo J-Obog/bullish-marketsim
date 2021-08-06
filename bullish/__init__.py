@@ -9,6 +9,6 @@ def create_app():
   
   @app.route('/test')
   def test():
-    return render_template('layout.html') 
+    return render_template('index.html') 
 
   return app

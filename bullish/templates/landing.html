@@ -1,0 +1,14 @@
+{% extends "layout.html" %} {% block title %}Bullish{% endblock %} {% block
+content %}
+<div class="bg-green-300 min-h-screen pt-12 pb-6 px-2">
+  <div class="py-4">
+    <header>
+      <h1 class="text-7xl font-extrabold text-white text-center">bullish</h1>
+      <p class="text-xl text-white text-center">
+        Your broker's favorite broker
+      </p>
+    </header>
+  </div>
+  <div>{% block landing_content %}{% endblock %}</div>
+</div>
+{% endblock %}
