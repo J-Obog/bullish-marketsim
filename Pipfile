@@ -11,6 +11,7 @@ flask = "*"
 python-decouple = "*"
 flask-apscheduler = "*"
 bullish = {editable = true, path = "."}
+jinja-partials = "*"
 
 [requires]
 python_version = "3.6"

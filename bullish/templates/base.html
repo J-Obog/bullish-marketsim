@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="icon" href="{{ url_for('static', filename='images/bull-logo.png') }}"/>
+    <link rel="icon" href="{{ url_for('static', filename='img/bull-logo.png') }}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:300,500"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"></script>
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body style="font-family: 'Quicksand', sans-serif">
-    <div>{% block content %}{% endblock %}</div>
+    {% block content %}
+      {{ render_partial("partials/navbar.html", links=["Portfolio", "Transactions"]) }}
+      <div>{% block main_content %}{% endblock %}</div>
+      {{ render_partial("partials/footer.html") }}
+      {% endblock %}
     {% block scripts %}{% endblock %}
   </body>
 </html>
