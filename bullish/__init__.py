@@ -11,7 +11,7 @@ def create_app():
 
   @app.route('/')
   def index():
-    return render_template('accounts.html')
+    return render_template('login.html', accounts=[{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"},{"name": "Account1"}])
   
   @app.route('/test')
   def test():
