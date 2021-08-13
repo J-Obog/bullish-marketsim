@@ -1,10 +1,10 @@
-{% extends "base-landing.html" %}
+{% extends "shared/base/landing.html" %}
 {% block title %}Bullish{% endblock %}
 
 {% block landing_content %}
     <div class="flex flex-wrap justify-center flex-direction-column">
         {% for account in accounts %}
-            {{ render_partial("partials/account-card.html", name=account.name) }}
+            {{ render_partial("shared/partials/account-card.html") }}
         {% endfor %}
     </div>
 {% endblock %}
