@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from bullish.views import bp
+from bullish import views
 import jinja_partials
 
 db = SQLAlchemy()
@@ -14,6 +14,6 @@ def create_app():
   jinja_partials.register_extensions(app)
   
   #register blueprint
-  app.register_blueprint(bp)
+  app.register_blueprint(views.bp)
 
   return app
