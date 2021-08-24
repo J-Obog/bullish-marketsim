@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='bullish',
+    name='bullish_backend',
     version='1.0',
     description='Stock market simulation',
     url='https://github.com/J-Obog/bullish-marketsim',
