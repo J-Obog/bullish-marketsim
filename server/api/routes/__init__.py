@@ -1,9 +1,7 @@
 from flask import Blueprint
 
 # blueprints
-import api.services.users as users
-import api.services.auth as auth
-import api.services.stocks as stocks
+from api.routes import users, stocks, auth
 
 # main router
 router = Blueprint("api", __name__)
