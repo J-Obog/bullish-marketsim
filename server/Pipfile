@@ -4,16 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-python-dotenv = "*"
 
 [packages]
 flask = "*"
 python-decouple = "*"
 flask-apscheduler = "*"
 flask-mongoalchemy = "*"
-bullish-backend = {editable = true, path = "."}
 flask-cors = "*"
 flask-jwt-extended = "*"
+python-dotenv = "*"
+bullish-backend = {editable = true, path = "."}
 
 [requires]
 python_version = "3.6"

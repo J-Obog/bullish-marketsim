@@ -28,11 +28,11 @@ const App = () => {
               <Switch>  
                   <PublicRoute path="/login" component={Login} exact restricted/>
                   <PublicRoute path="/signup" component={Signup} exact restricted/>
-                  <PrivateRoute path="/" component={Dashboard} exact />
-                  <PrivateRoute path="/orders" component={Orders} exact />
-                  <PrivateRoute path="/portfolio" component={Portfolio} exact />
-                  <PrivateRoute path="/stock/:id" component={Stock} exact />
-                  <PrivateRoute path="*" component={NoMatch} exact />
+                  <PrivateRoute path="/" component={Dashboard} exact/>
+                  <PrivateRoute path="/orders" component={Orders} exact/>
+                  <PrivateRoute path="/portfolio" component={Portfolio} exact/>
+                  <PrivateRoute path="/stock/:id" component={Stock} exact/>
+                  <PrivateRoute path="*" component={NoMatch} exact/>
               </Switch>
             </AuthContext.Provider>
         </Router>
