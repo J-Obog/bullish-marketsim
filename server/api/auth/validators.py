@@ -33,3 +33,5 @@ def validate_email(value, regex):
         return {"email": "Email cannot contain whitespace"}
     if not pattern.match(value):
         return {"email": f"Email must be valid"}
+    if User.query.filter_by(email=value).first():
+        return {"email": "Username already taken"}

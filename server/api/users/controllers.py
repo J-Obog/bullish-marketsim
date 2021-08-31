@@ -1,13 +1,5 @@
-from flask import request, abort, jsonify
-from functools import wraps
+from flask_jwt_extended import jwt_required
 
-def auth_required(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        if 1 == 1:
-            abort(401)
-        return f(*args, **kwargs)
-    return wrapper
-
-def signup():
-    pass
+@jwt_required()
+def protected():
+    return "Some protected route"
