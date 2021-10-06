@@ -10,7 +10,7 @@ const Navbar = () => {
                 </div>
                 <div class="w-full px-8 flex items-center justify-between">
                     <div>
-                    
+                        <a class="nav-link">Some Link</a>
                     </div>
                     <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
