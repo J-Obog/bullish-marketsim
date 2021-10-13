@@ -19,4 +19,8 @@ def create_app():
   db.init_app(app)
   migrate.init_app(app, db)
 
+  #registering blueprints
+  from api import main_bp
+  app.register_blueprint(main_bp, url_prefix="/api")
+
   return app

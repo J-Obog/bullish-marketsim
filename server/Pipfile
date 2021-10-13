@@ -20,6 +20,7 @@ flask-bcrypt = "*"
 psycopg2 = "*"
 flask-migrate = "*"
 flask-script = "*"
+marshmallow = "*"
 
 [requires]
 python_version = "3.6"
