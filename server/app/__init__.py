@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate 
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
+from flask_redis import FlaskRedis
 
 # application plugins
 cors = CORS()
@@ -11,6 +12,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 bcrypt = Bcrypt()
 jwt = JWTManager()
+cache = FlaskRedis()
 
 def create_app():
   # configuring app
@@ -24,6 +26,7 @@ def create_app():
   migrate.init_app(app, db)
   bcrypt.init_app(app)
   jwt.init_app(app)
+  cache.init_app(app)
 
   #registering blueprints
   from api import main_bp
