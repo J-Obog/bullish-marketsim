@@ -4,6 +4,22 @@ from api.accounts.model import Account
 from .validators import AccountReq
 from marshmallow import ValidationError, EXCLUDE
 
+def login():
+    # request body vars
+    body = request.json
+    email = body.get('email') 
+    password = body.get('password')
+
+    # query for account with matching email
+    acc = Account.query.filter_by(email=email).first()
+
+    # validate if there's a match and the match shares the same password
+    if acc and bcrypt.check_password_hash(acc.password, password):
+        return {'success': True, 'msg': 'sucesffully logged in'}, 200
+
+    return {'success': False, 'msg': 'email and password must match'}, 401
+
+
 def register_user():    
     body = request.json
 
@@ -11,16 +27,16 @@ def register_user():
     try:
         AccountReq().load(body, unknown=EXCLUDE)
     except ValidationError as err:
-        return {'success': False, 'errors': err.messages}, 401
+        return {'success': False, 'msg': err.messages}, 401
 
-    # body variables
+    # request body vars
     email = body.get('email') 
     password = body.get('password')
 
     # loading user into db
     phash = bcrypt.generate_password_hash(password, 10).decode('utf-8')
-    a = Account(email=email, password=phash)
-    db.session.add(a)
+    acc = Account(email=email, password=phash)
+    db.session.add(acc)
     db.session.commit() 
     
-    return {'email': a.email, 'password': a.password}, 200
+    return {'success': True, 'msg': 'Successfully registered'}, 200
