@@ -3,7 +3,14 @@ from app import db, bcrypt
 from api.accounts.model import Account
 from .validators import AccountReq
 from marshmallow import ValidationError, EXCLUDE
+from flask_jwt_extended import create_access_token
+from datetime import timedelta
 
+def logout():
+    pass
+
+
+""" Log a user in """
 def login():
     # request body vars
     body = request.json
@@ -12,14 +19,16 @@ def login():
 
     # query for account with matching email
     acc = Account.query.filter_by(email=email).first()
-
+    
     # validate if there's a match and the match shares the same password
     if acc and bcrypt.check_password_hash(acc.password, password):
-        return {'success': True, 'msg': 'sucesffully logged in'}, 200
+        access_token = create_access_token(identity=acc.id, expires_delta=timedelta(minutes=10))
+        return {'access_token': access_token}, 200
 
     return {'success': False, 'msg': 'email and password must match'}, 401
 
 
+""" Sign user up """
 def register_user():    
     body = request.json
 

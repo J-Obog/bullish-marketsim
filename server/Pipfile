@@ -15,12 +15,12 @@ flask-redis = "*"
 flask-sqlalchemy = "*"
 flask-s3 = "*"
 flask-socketio = "*"
-flask-jwt = "*"
 flask-bcrypt = "*"
 psycopg2 = "*"
 flask-migrate = "*"
 flask-script = "*"
 marshmallow = "*"
+flask-jwt-extended = "*"
 
 [requires]
 python_version = "3.6"
