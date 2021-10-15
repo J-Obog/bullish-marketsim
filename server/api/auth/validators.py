@@ -6,6 +6,6 @@ class AccountReq(Schema):
     password = fields.Str(required=True)
 
     @post_load
-    def enve(self, data, **kwargs):
+    def check_unique_email(self, data, **kwargs):
         if Account.query.filter_by(email=data['email']).first():
             raise ValidationError('There is an existing account with that email', "email")
