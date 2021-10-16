@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 //routing
 import { Switch, BrowserRouter as Router } from "react-router-dom";
 import PrivateRoute from "./routing/PrivateRoute";
 import PublicRoute from "./routing/PublicRoute";
 
 //pages
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Logout from "./pages/Logout"; 
-import Orders from "./pages/Orders";
-import Portfolio from "./pages/Portfolio";
-import Signup from "./pages/Signup";
-import Stock from "./pages/Stock"; 
-import NoMatch from "./pages/NoMatch"; 
+import { Dashboard, Login, Logout, Orders, Portfolio, Signup, Stock, NoMatch } from "./pages";
 
 import Navbar from './components/core/Navbar';
 import AuthContext from "./context/AuthContext"; 
 
 const App = () => {
-    const [token, setToken] = useState("");
+    const [user, setUser] = useState({token: null, refresh: null, isAuthenticated: false}); 
+    const BASE_URI = "http://localhost:4001/";
+
+    useEffect(() => {
+        //auth stuff
+    }, [])
 
     return (
         <Router>
-            <AuthContext.Provider value={{ token, setToken }}>
-              <Navbar/>
+            <AuthContext.Provider value={{ user, setUser }}
+            >
+              { user.isAuthenticated && <Navbar/> }
               <Switch>  
                   <PublicRoute path="/login" component={Login} exact restricted/>
                   <PublicRoute path="/signup" component={Signup} exact restricted/>

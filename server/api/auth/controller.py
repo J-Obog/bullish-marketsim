@@ -19,7 +19,6 @@ def private_route(fn):
     def wrap(*args, **kwargs):
         token = request.headers.get('authorization')
         token_decoded = decode_auth_token(token) 
-        #print(token_decoded)
 
         # check if token is present in header
         if not token:
@@ -32,8 +31,8 @@ def private_route(fn):
         g.jwt_identity = {'sig': token, 'exp': token_decoded['exp'], 'id': token_decoded['sub']}
         return fn(*args, **kwargs)
     return wrap
-    
 
+    
 """ Log a user out"""
 def logout():
     # add token to black list

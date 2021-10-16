@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .controller import register_user, login, logout, private_route
+from .controller import register_user, login, logout, private_route, cache_set
 
 auth_bp = Blueprint('auth', __name__)
 
