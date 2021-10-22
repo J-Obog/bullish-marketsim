@@ -37,7 +37,10 @@ def private_route(fn, refresh_required=False):
         return fn(*args, **kwargs)
     return wrap
 
-    
+""" Simply verify if tokens are valid """
+def verify():
+    return {'message': 'Verified'}
+
 """ Log a user out"""
 def logout():
     # add access and refresh to black list
