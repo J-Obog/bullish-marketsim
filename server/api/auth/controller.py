@@ -14,29 +14,35 @@ def decode_auth_token(token):
         return None
         
 """ Private route decorator"""
-def private_route(fn):
+def private_route(fn, refresh_required=False):
     @wraps(fn)
     def wrap(*args, **kwargs):
-        token = request.headers.get('authorization')
-        token_decoded = decode_auth_token(token) 
+        access = request.headers.get('auth-access')
+        refresh = request.headers.get('auth-refresh')
+        access_decoded = decode_auth_token(access) 
+        refresh_decoded = decode_auth_token(refresh)
 
         # check if token is present in header
-        if not token:
+        if not access or (refresh_required and not refresh):
             return {'message': 'Authentication credentials were not provided'}, 401
 
         # check if token is in blacklist    
-        if cache.get(token) or not token_decoded:
+        if (cache.get(access) or not access_decoded) or (refresh_required and (cache.get(refresh) or not refresh_decoded)):
             return {'message': 'Invalid Authorization header'}, 401
 
-        g.jwt_identity = {'sig': token, 'exp': token_decoded['exp'], 'id': token_decoded['sub']}
+        if refresh_required:
+            g.refresh = {'sig': refresh, 'exp': refresh_decoded['exp'], 'id': refresh_decoded['sub']} 
+
+        g.access = {'sig': access, 'exp': access_decoded['exp'], 'id': access_decoded['sub']}
         return fn(*args, **kwargs)
     return wrap
 
     
 """ Log a user out"""
 def logout():
-    # add token to black list
-    cache.set(g.get('jwt_identity')['sig'], 1, ex=3600)
+    # add access and refresh to black list
+    cache.set(g.get('access')['sig'], 1, ex=3600)
+    cache.set(g.get('refresh')['sig'], 1, ex=3600)
     return {'message': 'Logout successful'}, 200
 
 """ Log a user in """
