@@ -26,3 +26,6 @@ htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+# Redis binary
+*.rdb
