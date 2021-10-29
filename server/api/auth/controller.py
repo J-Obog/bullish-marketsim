@@ -1,52 +1,22 @@
-from os import error
 from flask import request, g
-from app import db, bcrypt, cache
+from app import db, bcrypt, cache, jwt
 from .validators import AccountValidator
-from marshmallow import ValidationError, EXCLUDE
+from marshmallow import ValidationError
 from api.accounts.model import Account
-from flask_jwt_extended import create_access_token, create_refresh_token, decode_token
-from functools import wraps
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required
 
-def decode_auth_token(token):
-    try:
-        return decode_token(token)
-    except Exception as err:
-        print(err)
-        return None
-        
-""" Private route decorator"""
-def private_route(fn, refresh_required=False):
-    @wraps(fn)
-    def wrap(*args, **kwargs):
-        access = request.headers.get('auth-access')
-        refresh = request.headers.get('auth-refresh')
-        access_decoded = decode_auth_token(access) 
-        refresh_decoded = decode_auth_token(refresh)
-
-        # check if token is present in header
-        if not access or (refresh_required and not refresh):
-            return {'message': 'Authentication credentials were not provided'}, 401
-
-        # check if token is in blacklist    
-        if (cache.get(access) or not access_decoded) or (refresh_required and (cache.get(refresh) or not refresh_decoded)):
-            return {'message': 'Invalid Authorization header'}, 401
-
-        if refresh_required:
-            g.refresh = {'sig': refresh, 'exp': refresh_decoded['exp'], 'id': refresh_decoded['sub']} 
-
-        g.access = {'sig': access, 'exp': access_decoded['exp'], 'id': access_decoded['sub']}
-        return fn(*args, **kwargs)
-    return wrap
-
-""" Simply verify if tokens are valid """
-def verify():
-    return {'message': 'Verified'}
+@jwt.token_in_blocklist_loader
+def check_token_in_blacklist(jwt_header, jwt_payload):
+    jti = jwt_payload["jti"]
+    token_in_redis = cache.get(jti)
+    return token_in_redis is not None
 
 """ Log a user out"""
+@jwt_required(refresh=True)
 def logout():
     # add access and refresh to black list
-    cache.set(g.get('access')['sig'], 1, ex=3600)
-    cache.set(g.get('refresh')['sig'], 1, ex=3600)
+    # cache.set(g.get('access')['sig'], 1, ex=3600)
+    # cache.set(g.get('refresh')['sig'], 1, ex=3600)
     return {'message': 'Logout successful'}, 200
 
 """ Log a user in """
@@ -76,8 +46,8 @@ def register_user():
     # handling validation errors
     try:
         AccountValidator().load(request.json)
-    except ValidationError as err:
-        return {'message': err.messages}, 401
+    except ValidationError as e:
+        return {'message': e.messages}, 401
 
     if Account.query.filter_by(email=email).first():
         return {'message': {'email': ['Account with email already exists']}}, 401
