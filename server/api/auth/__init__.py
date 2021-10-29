@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .controller import register_user, login, logout, verify
+from .controller import register_user, login, logout
 
 auth_bp = Blueprint('auth', __name__)
 

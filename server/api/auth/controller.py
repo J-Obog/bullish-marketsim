@@ -7,14 +7,11 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 
 @jwt.token_in_blocklist_loader
 def check_token_in_blacklist(jwt_header, jwt_payload):
-    jti = jwt_payload["jti"]
-    token_in_redis = cache.get(jti)
-    return token_in_redis is not None
+    return cache.get(jwt_payload['sub']) is not None
 
 """ Log a user out"""
-@jwt_required(refresh=True)
+@jwt_required()
 def logout():
-    # add access and refresh to black list
     # cache.set(g.get('access')['sig'], 1, ex=3600)
     # cache.set(g.get('refresh')['sig'], 1, ex=3600)
     return {'message': 'Logout successful'}, 200
