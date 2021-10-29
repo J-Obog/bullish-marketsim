@@ -1,11 +1,6 @@
-from marshmallow import Schema, fields, post_load, ValidationError
-from api.accounts.model import Account
+from marshmallow import Schema, fields
+from marshmallow.validate import Length
 
-class AccountReq(Schema):
+class AccountValidator(Schema):
     email = fields.Email(required=True)
-    password = fields.Str(required=True)
-
-    @post_load
-    def check_unique_email(self, data, **kwargs):
-        if Account.query.filter_by(email=data['email']).first():
-            raise ValidationError('There is an existing account with that email', "email")
+    password = fields.Str(required=True, validate=Length(min=8))

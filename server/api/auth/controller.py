@@ -1,8 +1,9 @@
+from os import error
 from flask import request, g
 from app import db, bcrypt, cache
-from api.accounts.model import Account
-from .validators import AccountReq
+from .validators import AccountValidator
 from marshmallow import ValidationError, EXCLUDE
+from api.accounts.model import Account
 from flask_jwt_extended import create_access_token, create_refresh_token, decode_token
 from functools import wraps
 
@@ -68,15 +69,18 @@ def login():
 
 """ Sign user up """
 def register_user():    
-    # handling validation errors
-    try:
-        AccountReq().load(request.json, unknown=EXCLUDE)
-    except ValidationError as err:
-        return {'message': err.messages}, 401
-
     # request body vars
     email = request.json.get('email') 
     password = request.json.get('password')
+
+    # handling validation errors
+    try:
+        AccountValidator().load(request.json)
+    except ValidationError as err:
+        return {'message': err.messages}, 401
+
+    if Account.query.filter_by(email=email).first():
+        return {'message': {'email': ['Account with email already exists']}}, 401
 
     # loading user into db
     acc = Account(email=email, password=bcrypt.generate_password_hash(password, 10).decode('utf-8'))

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-            <div className="bg-white py-5 px-4 flex flex-row items-center justify-between">
+            <div className="bg-white py-4 px-4 flex flex-row items-center justify-between">
                 <div className="flex flex-row">
                     <div className="mr-8 flex flex-row border border-gray-200 rounded-md px-2 py-0.5 hover:shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="#CBD5E1">

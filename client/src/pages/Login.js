@@ -24,7 +24,8 @@ const Login = () => {
         })
         .catch(({response}) => {
             const {data} = response; 
-            console.error(data);
+            //console.error(data);
+            setPassword("");            
         })
     }
 
@@ -32,7 +33,7 @@ const Login = () => {
         <div className="flex items-center justify-center h-screen">
             <div className="bg-white w-1/4 px-16 py-8 rounded-xl md shadow-xl flex flex-col items-center justify-center">
                 <div className="mb-16">
-                    <h1>Login</h1>
+                    <h1 className="text-4xl">Login</h1>
                 </div>
                 <div className="mb-12">
                     <div className="mb-8">
@@ -44,9 +45,9 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="text-sm mb-10">
-                    <Link to="/signup">Don't have an account?</Link>
+                    <Link to="/signup">Not a member yet? Sign up</Link>
                 </div>
-                <div className="mb-6 w-full">
+                <div className="mb-6 w-3/4">
                     <button onClick={attemptLogin} className="bg-green-400 py-1 px-3 text-white text-xl rounded-2xl w-full">Login</button>
                 </div>
             </div>
