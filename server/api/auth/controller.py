@@ -1,19 +1,23 @@
 from flask import request, g
 from app import db, bcrypt, cache, jwt
+from flask_migrate import current
 from .validators import AccountValidator
 from marshmallow import ValidationError
 from api.accounts.model import Account
-from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, current_user
 
 @jwt.token_in_blocklist_loader
 def check_token_in_blacklist(jwt_header, jwt_payload):
     return cache.get(jwt_payload['sub']) is not None
 
+@jwt.user_lookup_loader
+def user_lookup(jwt_header, jwt_payload):
+    return Account.query.filter_by(id=jwt_payload['sub']).one_or_none()
+
 """ Log a user out"""
 @jwt_required()
 def logout():
-    # cache.set(g.get('access')['sig'], 1, ex=3600)
-    # cache.set(g.get('refresh')['sig'], 1, ex=3600)
+    cache.set(current_user.id, '', ex=3600)
     return {'message': 'Logout successful'}, 200
 
 """ Log a user in """
