@@ -1,5 +1,4 @@
-from sqlalchemy.orm import defer
-from .model import AccountData, AccountSchema, AccountDataSchema
+from .model import AccountData, AccountDataSchema
 from flask_jwt_extended import jwt_required, current_user
 from flask import jsonify
 
@@ -13,7 +12,7 @@ def get_account():
         portfolio_equity=current_user.portfolio_equity,
         buying_power=current_user.buying_power,
         created_at=current_user.created_at
-    ), 200
+    )
 
 
 """ Get account historical trading data """
@@ -21,4 +20,4 @@ def get_account():
 def get_account_trading_data():
     data = AccountData.query.filter_by(account_id=current_user.id)
     res = AccountDataSchema(many=True).dump(data)
-    return jsonify(data=res), 200
+    return jsonify(data=res)

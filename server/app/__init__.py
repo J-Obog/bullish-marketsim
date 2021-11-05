@@ -6,6 +6,8 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_redis import FlaskRedis
 from flask_marshmallow import Marshmallow
+from dotenv import load_dotenv
+from os import getenv
 
 # application plugins
 cors = CORS()
@@ -17,9 +19,12 @@ cache = FlaskRedis()
 ma = Marshmallow()
 
 def create_app():
+  if getenv('FLASK_ENV') != 'PROD':
+    load_dotenv()
+
   # configuring app
   app = Flask(__name__)
-  app.config.from_pyfile("config.py")
+  app.config.from_pyfile('config.py')
   app.url_map.strict_slashes = False
   
   # binding plugins
