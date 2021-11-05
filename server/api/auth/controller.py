@@ -9,7 +9,7 @@ def check_token_in_blacklist(_, jwt_payload):
 
 @jwt.user_lookup_loader
 def user_lookup(_, jwt_payload):
-    return Account.query.filter_by(id=jwt_payload['sub']).one_or_none()
+    return Account.query.options().filter_by(id=jwt_payload['sub']).one_or_none()
 
 """ Log a user out"""
 @jwt_required()
