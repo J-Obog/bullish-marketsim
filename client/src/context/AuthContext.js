@@ -12,7 +12,7 @@ const Auth = ({children}) => {
         if(!access || !refresh)
             return;  
             
-        axios.get("http://localhost:4001/api/auth/verify", { headers: { 'auth-access': access, 'auth-refresh': refresh }})
+        axios.get('http://localhost:4001/api/account', { headers: { 'Authorization': access }})
         .then(res => {
             setAuthenticated(true); 
         })
