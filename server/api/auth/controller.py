@@ -1,17 +1,14 @@
-from flask import request, g
+from flask import request
 from app import db, bcrypt, cache, jwt
-from flask_migrate import current
-from .validators import AccountValidator
-from marshmallow import ValidationError
-from api.accounts.model import Account
+from api.accounts.model import Account, AccountSchema
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, current_user
 
 @jwt.token_in_blocklist_loader
-def check_token_in_blacklist(jwt_header, jwt_payload):
+def check_token_in_blacklist(_, jwt_payload):
     return cache.get(jwt_payload['sub']) is not None
 
 @jwt.user_lookup_loader
-def user_lookup(jwt_header, jwt_payload):
+def user_lookup(_, jwt_payload):
     return Account.query.filter_by(id=jwt_payload['sub']).one_or_none()
 
 """ Log a user out"""
@@ -46,8 +43,8 @@ def register_user():
 
     # handling validation errors
     try:
-        AccountValidator().load(request.json)
-    except ValidationError as e:
+        AccountSchema().load(request.json)
+    except Exception as e:
         return {'message': e.messages}, 401
 
     if Account.query.filter_by(email=email).first():

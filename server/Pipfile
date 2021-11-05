@@ -20,7 +20,8 @@ psycopg2 = "*"
 flask-migrate = "*"
 flask-script = "*"
 flask-jwt-extended = "*"
-marshmallow = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
 
 [requires]
 python_version = "3.6"

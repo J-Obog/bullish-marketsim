@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_redis import FlaskRedis
+from flask_marshmallow import Marshmallow
 
 # application plugins
 cors = CORS()
@@ -13,6 +14,7 @@ migrate = Migrate()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 cache = FlaskRedis()
+ma = Marshmallow()
 
 def create_app():
   # configuring app
@@ -27,6 +29,7 @@ def create_app():
   bcrypt.init_app(app)
   jwt.init_app(app)
   cache.init_app(app)
+  ma.init_app(app)
 
   #registering blueprints
   from api import main_bp
