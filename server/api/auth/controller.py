@@ -28,14 +28,16 @@ def login():
     acc = Account.query.filter_by(email=email).first()
     
     # validate if there's a match and the match shares the same password
-    if acc and bcrypt.check_password_hash(acc.password, password):
-        access_token = create_access_token(identity=acc.id, expires_delta=timedelta(hours=1))
-        refresh_token = create_refresh_token(identity=acc.id, expires_delta=timedelta(days=30))
-
-        return jsonify(access_token=access_token, refresh_token=refresh_token)
-
-    return jsonify(message='Email and password must match'), 401
-
+    if acc:
+        if bcrypt.check_password_hash(acc.password, password):
+            access_token = create_access_token(identity=acc.id, expires_delta=timedelta(hours=1))
+            refresh_token = create_refresh_token(identity=acc.id, expires_delta=timedelta(days=30))
+            
+            return jsonify(access_token=access_token, refresh_token=refresh_token)
+        else:
+            return jsonify(message='Email and password must match'), 401
+    else:
+        return jsonify(message='No matching account for email'), 401
 
 """ Sign user up """
 def register_user():    

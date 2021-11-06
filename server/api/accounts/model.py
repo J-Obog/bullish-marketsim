@@ -13,8 +13,6 @@ class Account(db.Model):
     buying_power = db.Column(db.Float(decimal_return_scale=2), nullable=False, default=20000.00)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    account_data = db.relationship('AccountData', backref='account')
-
 class AccountData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     equity_prev_close = db.Column(db.Float(decimal_return_scale=2), nullable=False)

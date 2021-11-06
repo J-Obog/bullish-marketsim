@@ -24,8 +24,7 @@ const Login = () => {
         })
         .catch(({response}) => {
             const {data} = response; 
-            //console.error(data);
-            setPassword("");            
+            console.error(data);
         })
     }
 
@@ -40,8 +39,7 @@ const Login = () => {
                         <input onInput={changeEmail} size="30" placeHolder="Email" className="outline-none border-b-2 border-gray-200 focus:border-green-300"/>
                     </div>
                     <div>
-                        <input onInput={changePassword} size="30" type="password" placeHolder="Password" 
-                        className="outline-none border-b-2 border-gray-200 focus:border-green-300"/>
+                        <input onInput={changePassword} size="30" type="password" placeHolder="Password" className="outline-none border-b-2 border-gray-200 focus:border-green-300"/>
                     </div>
                 </div>
                 <div className="text-sm mb-10">

@@ -1,4 +1,4 @@
-from app import db
+from app import db, ma
 from datetime import datetime
 
 class Stock(db.Model):
@@ -11,9 +11,16 @@ class Stock(db.Model):
 
 class StockData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'), nullable=False)
     prev_close = db.Column(db.Float(decimal_return_scale=2), nullable=False)
     market_price = db.Column(db.Float(decimal_return_scale=2), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'), nullable=False)
 
-    stock = db.relationship('Stock')
+""" Schemas """
+class StockSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'ticker', 'company', 'prev_close', 'market_price', 'logo_url')
+
+class StockDataSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'stock_id', 'prev_close', 'market_price', 'timestamp')
